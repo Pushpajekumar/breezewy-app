@@ -61,8 +61,15 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-      <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-      <Stack />
+      {/* <StatusBar style={isDarkColorScheme ? "light" : "dark"} /> */}
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="index" />
+        <Stack.Screen name="onboarding" />
+      </Stack>
     </ThemeProvider>
   );
 }
