@@ -1,76 +1,75 @@
-import { View, Text, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
+import BackComponent from "~/components/globals/back-component";
 import FeaturedContainer from "~/components/globals/featured-container";
-import EquipmentBasedExercise from "~/components/home/equipment-based-exercise";
-import Header from "~/components/home/header";
-import HomeCarousel from "~/components/home/home-carousel";
-import HomeExplore from "~/components/home/home-explore";
 import SearchComp from "~/components/home/search-comp";
 
-const homeExploreData = [
+const mealsAndPackagesData = [
   {
     id: 1,
-    name: "Total body & Cardio (gym) ",
-    imgUrl: require("~/assets/images/image (3).jpg"),
+    name: "Silver Package: Meal Plan & 8 IN-Person 30 Min PT Sessions",
+    imgUrl: require("~/assets/images/image 196.jpg"),
   },
   {
     id: 2,
-    name: "Abs Workout",
-    imgUrl: require("~/assets/images/image (2).jpg"),
+    name: "Silver Package: Meal Plan & 8 IN-Person 30 Min PT Sessions",
+    imgUrl: require("~/assets/images/image 197.jpg"),
   },
   {
     id: 3,
-    name: "Legs & Glutes",
-    imgUrl: require("~/assets/images/image (3).jpg"),
+    name: "Silver Package: Meal Plan & 8 IN-Person 30 Min PT Sessions",
+    imgUrl: require("~/assets/images/image 196.jpg"),
+  },
+];
+const inPersonTrainingData = [
+  {
+    id: 1,
+    name: "30 min In Person Training Session (4x Per Week)",
+    imgUrl: require("~/assets/images/image 195.jpg"),
   },
   {
-    id: 4,
-    name: "Arms & Shoulders",
-    imgUrl: require("~/assets/images/image (2).jpg"),
+    id: 2,
+    name: "30 min In Person Training Session (4x Per Week)",
+    imgUrl: require("~/assets/images/image 197.jpg"),
   },
   {
-    id: 5,
-    name: "Yoga & Stretching",
-    imgUrl: require("~/assets/images/image (3).jpg"),
+    id: 3,
+    name: "30 min In Person Training Session (4x Per Week)",
+    imgUrl: require("~/assets/images/image 194.jpg"),
+  },
+];
+const weightLossProgramData = [
+  {
+    id: 1,
+    name: "Weight-loss Program",
+    imgUrl: require("~/assets/images/image 194.jpg"),
+  },
+  {
+    id: 2,
+    name: "Weight-gain Program",
+    imgUrl: require("~/assets/images/image 199.jpg"),
+  },
+  {
+    id: 3,
+    name: "Weight-loss Program",
+    imgUrl: require("~/assets/images/image 194.jpg"),
   },
 ];
 
-const featuredDiet = [
-  {
-    id: 1,
-    name: "Total body & Cardio (gym) ",
-    imgUrl: require("~/assets/images/Image (3)2.jpg"),
-  },
-  {
-    id: 2,
-    name: "Abs Workout",
-    imgUrl: require("~/assets/images/Image (2)1.jpg"),
-  },
-  {
-    id: 3,
-    name: "Legs & Glutes",
-    imgUrl: require("~/assets/images/Image (3)2.jpg"),
-  },
-  {
-    id: 4,
-    name: "Arms & Shoulders",
-    imgUrl: require("~/assets/images/Image (2)1.jpg"),
-  },
-  {
-    id: 5,
-    name: "Yoga & Stretching",
-    imgUrl: require("~/assets/images/Image (3)2.jpg"),
-  },
-];
 const index = () => {
   return (
-    <ScrollView className="bg-[#1E1E1E] flex-1 mt-8">
-      <Header />
+    <ScrollView className="bg-[#1E1E1E] flex-1 mt-8 py-3">
+      <BackComponent title="Programs & Plans" />
       <SearchComp />
-      <HomeCarousel />
-      <HomeExplore />
-      <EquipmentBasedExercise />
-      <FeaturedContainer data={homeExploreData} title="Featured Workouts" />
-      <FeaturedContainer data={featuredDiet} title="Featured Diets" />
+      <FeaturedContainer
+        data={mealsAndPackagesData}
+        title="Meals and Packages"
+      />
+      <FeaturedContainer data={weightLossProgramData} title="Programs" />
+      <FeaturedContainer
+        data={inPersonTrainingData}
+        title="In Person Training"
+      />
+      <FeaturedContainer data={mealsAndPackagesData} title="Online Training" />
     </ScrollView>
   );
 };
