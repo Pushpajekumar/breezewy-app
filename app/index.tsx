@@ -1,59 +1,108 @@
 import {
-  Image,
+  View,
+  Text,
   ScrollView,
   StyleSheet,
-  Text,
-  View,
-  Dimensions,
+  Image,
+  TouchableOpacity,
 } from "react-native";
-import { Button } from "~/components/ui/button";
-import { Colors } from "~/constants/Colors";
+import React, { useState } from "react";
+import { Colors } from "~/constants/Colors"; // Adjust the import based on your project structure
+import { AntDesign } from "@expo/vector-icons";
+import { Input } from "~/components/ui/input"; // Adjust the import based on your project structure
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+const filter = [
+  { id: 1, name: "All", value: "all" },
+  { id: 2, name: "Workout", value: "workout" },
+  { id: 3, name: "Exercise", value: "exercise" },
+  { id: 4, name: "Diet", value: "diet" },
+];
 
-const index = () => {
+const result = [
+  {
+    id: 1,
+    name: "Hammer Curls",
+    image: require("~/assets/images/search-result.png"),
+  },
+  {
+    id: 2,
+    name: "Push Ups",
+    image: require("~/assets/images/search-result.png"),
+  },
+  {
+    id: 3,
+    name: "Squats",
+    image: require("~/assets/images/search-result.png"),
+  },
+  { id: 4, name: "Plank", image: require("~/assets/images/search-result.png") },
+];
+
+const Index = () => {
+  const [selectedFilter, setSelectedFilter] = useState(1); // Default selected filter
+
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <View>
-          <Image
-            source={require("~/assets/images/plan-details.png")}
-            style={styles.image}
-            alt="Plan Details"
+      <View style={styles.search}>
+        <AntDesign name="left" size={20} color={Colors.light.primary} />
+        <View style={styles.searchContainer}>
+          <Input
+            style={styles.input}
+            placeholderTextColor={"#FFFFFF"}
+            placeholder="Search..."
           />
-
-          <View style={styles.content}>
-            <Text style={styles.title}>Get Ripped</Text>
-
-            <View style={styles.priceContainer}>
-              <Text style={styles.price}>$250 Every 1 month</Text>
-              <Text style={styles.subtitle}>Recurring Subscription</Text>
-            </View>
-
-            <View>
-              <Text style={styles.description}>
-                Are you ready for your transformation? LET’S GO! Are you a
-                Bodybuilder looking to enter a contest prep? Or are you someone
-                simply ready and willing to put in the necessary work to Get
-                Ripped in as little as 90 days!? This is an accelerated program
-                designed to shed unwanted body weight and get you lean in a
-                short period of time. Opt with this package deal and you’ll
-                receive a customized training program that you'll follow on your
-                own time, a customized nutrition plan that will be tracked by
-                your assigned coach, weekly check-ins, and 24/7 access to your
-                coach. Your 100% discipline and dedication is required to make
-                this goal attainable. The Get Ripped in as little 90 days
-                Program.
-              </Text>
-            </View>
-          </View>
+          <Image
+            source={require("~/assets/images/Magnifer.png")}
+            style={styles.image}
+            alt="Search bar"
+          />
         </View>
-      </ScrollView>
-      <View style={styles.buttonContainer}>
-        <Button style={styles.button}>
-          <Text style={styles.buttonText}>Purchase Now</Text>
-        </Button>
       </View>
+      <View style={styles.filterContainer}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {filter.map((item) => (
+            <TouchableOpacity
+              key={item.id}
+              style={[
+                styles.filterBox,
+                {
+                  backgroundColor:
+                    selectedFilter === item.id
+                      ? Colors.light.primary
+                      : "transparent", // Set selected background color
+                  borderColor:
+                    selectedFilter === item.id ? Colors.light.primary : "white", // Set border color
+                },
+              ]}
+              onPress={() => setSelectedFilter(item.id)} // Update selected filter
+            >
+              <Text
+                style={{
+                  color: selectedFilter === item.id ? "#000000" : "#FFFFFF", // Set text color based on selection
+                  margin: 10,
+                }}
+              >
+                {item.name}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
+
+      <ScrollView>
+        {result?.map((item) => (
+          <View style={styles.result_box} key={item?.id}>
+            <Image
+              source={item?.image}
+              width={60}
+              height={60}
+              alt="Search result"
+              style={styles.result_image}
+            />
+
+            <Text style={styles.result_text}>{item?.name}</Text>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 };
@@ -62,63 +111,78 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.light.background,
+    paddingTop: 60,
+    paddingHorizontal: 20,
   },
-  scrollView: {
-    paddingTop: 32,
+
+  search: {
+    flexDirection: "row",
+    gap: 5,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  image: {
-    width: screenWidth, // full screen width
-    height: screenHeight * 0.3, // 40% of the screen height
-    resizeMode: "cover",
-    alignSelf: "center",
-  },
-  content: {
-    padding: 20,
+
+  searchContainer: {
+    flexDirection: "row",
+    borderWidth: 1,
+    borderColor: "#FFFFFF",
+    borderRadius: 8,
+    alignItems: "center",
     flex: 1,
+    paddingHorizontal: 5,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "500",
-    color: "white",
+
+  input: {
+    flex: 1,
+    color: "#FFFFFF",
   },
-  priceContainer: {
-    marginTop: 4,
-    paddingBottom: 12,
-    borderBottomWidth: 2,
-    borderBottomColor: Colors.light.mute,
+
+  image: {
+    width: 24,
+    height: 24,
   },
-  price: {
-    fontSize: 20,
-    fontWeight: "500",
-    color: Colors.light.primary,
+
+  filterContainer: {
+    flexDirection: "row",
+    marginTop: 15,
   },
-  subtitle: {
-    color: "white",
-    fontWeight: "500",
-    fontSize: 12,
+
+  filterBox: {
+    borderRadius: 29,
+    paddingHorizontal: 10,
+    margin: 5,
+    borderWidth: 1,
   },
-  description: {
-    color: Colors.light.mute,
-    fontSize: 14,
-    marginTop: 8,
-    paddingBottom: 80,
+
+  result_box: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
+    backgroundColor: "#2F2F2F",
+    borderRadius: 12,
+    marginTop: 10,
+    gap: 10,
+    shadowColor: "#C5C6C7",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
-  buttonContainer: {
-    padding: 20,
-    width: "100%",
-    backgroundColor: Colors.light.background,
-  },
-  button: {
-    backgroundColor: Colors.light.primary,
-    height: 56,
+
+  result_image: {
+    width: 60,
+    height: 60,
     borderRadius: 12,
   },
-  buttonText: {
+
+  result_text: {
+    fontSize: 18,
     fontWeight: "500",
-    fontSize: 16,
-    color: "black",
-    textAlign: "center",
+    color: "white",
   },
 });
 
-export default index;
+export default Index;

@@ -2,8 +2,8 @@ import { View, Text, Image } from "react-native";
 import { Input } from "../ui/input";
 const SearchComp = () => {
   return (
-    <View className=" mt-3 px-3">
-      <View className="border pr-2 rounded-md border-white flex-row justify-between items-center">
+    <View className=" mt-3 px-3 ">
+      <View className="border w-full pr-2 rounded-md border-white flex-row justify-between items-center">
         <Input
           className="rounded  flex-1"
           placeholderTextColor={"#FFFFFF"}
