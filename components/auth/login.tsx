@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
-const login = () => {
+const Login = () => {
   return (
     <View>
       <Text>login</Text>
     </View>
   );
 };
-export default login;
+export default Login;
